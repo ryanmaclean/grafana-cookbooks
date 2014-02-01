@@ -4,7 +4,7 @@ node[:deploy].each do |application, deploy|
     sed -i -E 's/(graphiteUrl:\s*).+,/\1 "#{node[:grafana][:graphite_url]}",/g' #{deploy[:deploy_to]}/src/config.js
   eos
 
-  elasticsearch_ip = node[:opsworks][:layers]['elasticsearch'][:instances].first[:private_ip]
+  elasticsearch_ip = node[:opsworks][:layers]['elasticsearch'][:instances].values.first[:private_ip]
   update_config_elasticsearch = <<-eos
     sed -i -E 's/(elasticsearch:\s*).+,/\1 "http://#{elasticsearch_ip}:9200",/g' #{deploy[:deploy_to]}/src/config.js
   eos
