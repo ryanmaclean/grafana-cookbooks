@@ -1,6 +1,6 @@
 node[:deploy].each do |application, deploy|
 
-  config_path = "#{deploy[:deploy_to]}/config.js"
+  config_path = "#{deploy[:deploy_to]}/current/src/config.js"
 
   update_config_graphite_url = <<-eos
     sed -i -E 's^(graphiteUrl:\s*).+,^\1 "#{node[:grafana][:graphite_url]}",^g' #{config_path}
