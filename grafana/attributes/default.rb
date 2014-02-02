@@ -1,1 +1,1 @@
-default.grafana[:graphite_url] = "http://localhost/graphite"
+default.grafana[:config]['graphiteUrl'] = "http://localhost/graphite"
