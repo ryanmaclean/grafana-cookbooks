@@ -12,7 +12,7 @@ Use a `Static Web Server` layer.
 
 ### Elastic search layer
 
-Use a `Custom` layer.
+Use a `Custom` layer, with a shortname of `elasticsearch`.
 
 - Add `elasticsearch::install` and `elasticsearch::packages` to the **Setup** custom chef recipes.
 - Add `elasticsearch` to the **Configure** custom chef recipes.
@@ -31,5 +31,7 @@ You can configure the [grafana config file][grafana_config] by doing so:
     }
 }
 ```
+
+Note that the elasticsearch url will be automatically configured.
 
 [grafana_config]: https://github.com/torkelo/grafana/blob/master/src/config.sample.js
