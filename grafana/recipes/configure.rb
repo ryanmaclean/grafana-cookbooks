@@ -8,6 +8,15 @@ end
 node[:deploy].each do |application, deploy|
 
   config_path = "#{deploy[:deploy_to]}/current/src/config.js"
+  sample_config_path = "#{deploy[:deploy_to]}/current/src/config.sample.js"
+
+  file config_path do
+    user deploy[:user]
+    group deploy[:group]
+    mode 0755
+    content ::File.open(sample_config_path).read
+    action :create_if_missing
+  end
 
   node[:grafana][:config].each do |key, value|
     update_config(config_path, key, value)
