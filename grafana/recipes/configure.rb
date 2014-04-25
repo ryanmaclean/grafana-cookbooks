@@ -11,7 +11,7 @@ node[:deploy].each do |application, deploy|
   sample_config_path = "#{deploy[:deploy_to]}/current/src/config.sample.js"
 
   file config_path do
-    user deploy[:user]
+    owner deploy[:user]
     group deploy[:group]
     mode 0755
     content ::File.open(sample_config_path).read
