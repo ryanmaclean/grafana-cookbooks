@@ -4,6 +4,11 @@ Grafana (opsworks) cookbooks
 Setup
 -----
 
+### App
+
+Create a Static app. Specify `https://github.com/torkelo/grafana` as the repository url. I advise you to specify a tag
+or revision.
+
 ### Static web server layer
 
 Use a `Static Web Server` layer.
