@@ -9,12 +9,10 @@ node[:deploy].each do |application, deploy|
 
   config_path = "#{deploy[:release_path]}/src/config.js"
 
-  file config_path do
-    owner deploy[:user]
+  execute "cp src/config.sample.js src/config.js" do
+    cwd deploy[:release_path]
+    user deploy[:user]
     group deploy[:group]
-    mode 0755
-    content ::File.open("#{deploy[:release_path]}/src/config.sample.js").read
-    action :create
   end
 
   node[:grafana][:config].each do |key, value|
