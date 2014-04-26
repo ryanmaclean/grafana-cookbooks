@@ -7,11 +7,6 @@ end
 
 node[:deploy].each do |application, deploy|
 
-  unless ::File.directory?(deploy[:release_path])
-    Chef::Log.debug('Release directory does not exist, stopping configure.')
-    next
-  end
-
   config_path = "#{deploy[:release_path]}/src/config.js"
 
   file config_path do
