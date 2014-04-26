@@ -13,7 +13,7 @@ or revision.
 
 Use a `Static Web Server` layer.
 
-- Add `grafana::configure` to the **Deploy** custom chef recipes.
+- Add `grafana::deploy` to the **Deploy** custom chef recipes.
 
 ### Elastic search layer
 
