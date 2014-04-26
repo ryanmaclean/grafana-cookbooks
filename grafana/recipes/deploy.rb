@@ -24,17 +24,19 @@ node[:deploy].each do |application, deploy|
 
   execute "npm install" do
     cwd deploy[:release_path]
+    user deploy[:user]
+    group deploy[:group]
   end
   execute "./node_modules/.bin/grunt build" do
     cwd deploy[:release_path]
+    user deploy[:user]
+    group deploy[:group]
   end
 
-  file "#{deploy[:release_path]}/dist/config.js" do
-    owner deploy[:user]
+  execute "cp src/config.js dist/config.js" do
+    cwd deploy[:release_path]
+    user deploy[:user]
     group deploy[:group]
-    mode 0755
-    content ::File.open(config_path).read
-    action :create
   end
 
 end
