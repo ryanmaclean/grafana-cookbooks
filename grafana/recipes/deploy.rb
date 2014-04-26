@@ -23,10 +23,8 @@ node[:deploy].each do |application, deploy|
   elasticsearch_ip = node[:opsworks][:layers]['elasticsearch'][:instances].values.first[:private_ip]
   update_config(config_path, "elasticsearch", "http://#{elasticsearch_ip}:9200")
 
-  execute "npm install" do
+  execute "sudo su #{deploy[:user]} -c 'npm install'" do
     cwd current_path
-    user deploy[:user]
-    group deploy[:group]
   end
   execute "./node_modules/.bin/grunt build" do
     cwd current_path
