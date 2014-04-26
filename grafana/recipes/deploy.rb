@@ -7,10 +7,11 @@ end
 
 node[:deploy].each do |application, deploy|
 
-  config_path = "#{deploy[:release_path]}/src/config.js"
+  current_path = "#{deploy[:deploy_to]}/current"
+  config_path = "#{current_path}/src/config.js"
 
   execute "cp src/config.sample.js src/config.js" do
-    cwd deploy[:release_path]
+    cwd current_path
     user deploy[:user]
     group deploy[:group]
   end
@@ -23,18 +24,18 @@ node[:deploy].each do |application, deploy|
   update_config(config_path, "elasticsearch", "http://#{elasticsearch_ip}:9200")
 
   execute "npm install" do
-    cwd deploy[:release_path]
+    cwd current_path
     user deploy[:user]
     group deploy[:group]
   end
   execute "./node_modules/.bin/grunt build" do
-    cwd deploy[:release_path]
+    cwd current_path
     user deploy[:user]
     group deploy[:group]
   end
 
   execute "cp src/config.js dist/config.js" do
-    cwd deploy[:release_path]
+    cwd current_path
     user deploy[:user]
     group deploy[:group]
   end
