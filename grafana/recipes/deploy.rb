@@ -1,10 +1,3 @@
-def update_config(path, key, value)
-  command = <<-eos
-    sed -i -E 's^(#{key}:\s*).+,^#{key}: "#{value}",^g' #{path}
-  eos
-  execute command
-end
-
 node[:deploy].each do |application, deploy|
 
   current_path = "#{deploy[:deploy_to]}/current"
@@ -16,12 +9,17 @@ node[:deploy].each do |application, deploy|
     group deploy[:group]
   end
 
-  node[:grafana][:config].each do |key, value|
-    update_config(config_path, key, value)
-  end
-
   elasticsearch_ip = node[:opsworks][:layers]['elasticsearch'][:instances].values.first[:private_ip]
-  update_config(config_path, "elasticsearch", "http://#{elasticsearch_ip}:9200")
+  template config_path do
+    mode '0744'
+    owner deploy[:user]
+    group deploy[:group]
+    variables({
+        :es_url => "http://#{elasticsearch_ip}:9200",
+        :graphite_url => node[:grafana][:graphite_url],
+        :default_route => node[:grafana][:default_route],
+    })
+  end
 
   execute "sudo su #{deploy[:user]} -c 'npm install'" do
     cwd current_path
