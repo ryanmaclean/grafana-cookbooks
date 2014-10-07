@@ -3,12 +3,6 @@ node[:deploy].each do |application, deploy|
   current_path = "#{deploy[:deploy_to]}/current"
   config_path = "#{current_path}/src/config.js"
 
-  execute "cp src/config.sample.js src/config.js" do
-    cwd current_path
-    user deploy[:user]
-    group deploy[:group]
-  end
-
   elasticsearch_ip = node[:opsworks][:layers]['elasticsearch'][:instances].values.first[:private_ip]
   template config_path do
     mode '0744'
