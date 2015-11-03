@@ -24,6 +24,9 @@ Use a `Custom` layer, with a shortname of `elasticsearch`.
 
 ### Stack configuration
 
+####Chef Version
+As we're statically linked to the EliasticSearch recipe, we'll need to use Chef 0.9, 
+
 ####Berkshelf
 In order to have the "java" cookbook load, we'll use Berkshelf - enable this in the stack settings. 
 
