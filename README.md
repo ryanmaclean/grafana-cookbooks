@@ -9,9 +9,9 @@ Setup
 Create a Static app. Specify `https://github.com/torkelo/grafana` as the repository url. I advise you to specify a tag
 or revision.
 
-### Static web server layer
+### NodeJS Web Server
 
-Use a `Static Web Server` layer.
+Use a `NodeJS Web Server` layer.
 
 - Add `grafana::deploy` to the **Deploy** custom chef recipes.
 
