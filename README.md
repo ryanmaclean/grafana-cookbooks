@@ -24,6 +24,10 @@ Use a `Custom` layer, with a shortname of `elasticsearch`.
 
 ### Stack configuration
 
+####Berkshelf
+In order to have the "java" cookbook load, we'll use Berkshelf - enable this in the stack settings. 
+
+####Grafana Config
 You can configure the [grafana config file][grafana_config] by doing so:
 
 ```json
